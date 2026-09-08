@@ -48,9 +48,11 @@ jobs:
           test -d dist/pdfjs/standard_fonts
           grep -q '/pdf-invoice-editor/assets/' dist/index.html
 
+      # No `enablement: true` here: GITHUB_TOKEN is not allowed to create the Pages site
+      # ("Resource not accessible by integration"), only to deploy to an existing one.
+      # Pages was turned on once out-of-band with an owner token:
+      #   gh api -X POST repos/najie/pdf-invoice-editor/pages -f build_type=workflow
       - uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       - uses: actions/upload-pages-artifact@v3
         with:

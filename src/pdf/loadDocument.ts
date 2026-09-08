@@ -11,9 +11,11 @@ import * as pdfjs from 'pdfjs-dist';
 export const PDFJS_PARAMS = {
   fontExtraProperties: true,
   isEvalSupported: false,
-  cMapUrl: '/pdfjs/cmaps/',
+  // BASE_URL carries its trailing slash, and is '/' outside a Vite build (Node tests
+  // override both of these through `NODE_PARAMS` anyway).
+  cMapUrl: `${import.meta.env.BASE_URL}pdfjs/cmaps/`,
   cMapPacked: true,
-  standardFontDataUrl: '/pdfjs/standard_fonts/',
+  standardFontDataUrl: `${import.meta.env.BASE_URL}pdfjs/standard_fonts/`,
 } as const;
 
 export type PdfDoc = pdfjs.PDFDocumentProxy;

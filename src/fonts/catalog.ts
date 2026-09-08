@@ -39,5 +39,7 @@ export function styleOf(bold: boolean, italic: boolean): Style {
 export function fontPath(id: string, style: Style): string {
   const family = byId(id);
   if (!family) throw new Error(`unknown font family: ${id}`);
-  return `/fonts/${family.name}-${style}.ttf`;
+  // BASE_URL keeps this correct under the Pages subpath, and resolves to '/fonts/…' in
+  // Node tests, where the loader reads `public${path}` off disk.
+  return `${import.meta.env.BASE_URL}fonts/${family.name}-${style}.ttf`;
 }

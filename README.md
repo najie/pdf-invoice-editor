@@ -4,6 +4,8 @@ Retype text on an existing invoice PDF and export it again, with everything you 
 touch carried over unchanged — logos, images, table rules, and every other line of text.
 Runs entirely in the browser; no invoice is ever uploaded anywhere.
 
+**Live: https://najie.github.io/pdf-invoice-editor/**
+
 ```bash
 npm install     # also copies font and pdf.js assets into public/
 npm run dev

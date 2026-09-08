@@ -1,0 +1,60 @@
+name: Deploy to Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Let a newer push supersede an in-flight deploy, but never cancel one mid-publish.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      # postinstall runs sync-fonts + sync-pdfjs, which populate the gitignored
+      # public/fonts and public/pdfjs out of node_modules. Without it the build ships an
+      # app with no replacement fonts and no cmaps.
+      - run: npm ci
+
+      - run: npm run typecheck
+      - run: npm test
+
+      - run: npm run build
+
+      # Both sync scripts warn-and-continue if their source package is missing, so a
+      # stripped build would deploy green. Fail here instead.
+      - name: Check runtime assets made it into the build
+        run: |
+          test -f dist/fonts/Arimo-Regular.ttf
+          test -d dist/pdfjs/cmaps
+          test -d dist/pdfjs/standard_fonts
+          grep -q '/pdf-invoice-editor/assets/' dist/index.html
+
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+      - id: deploy
+        uses: actions/deploy-pages@v4

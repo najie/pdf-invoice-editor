@@ -1,0 +1,20 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-paper: #ffffff;
+  --color-ink: #1a1d21;
+  --color-shell: #f4f5f7;
+  --color-edge: #d9dce1;
+}
+
+html, body, #root { height: 100%; }
+
+body {
+  background: var(--color-shell);
+  color: var(--color-ink);
+  font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* The page raster is scaled by CSS, so keep it sharp rather than blurred. */
+.page-canvas { image-rendering: -webkit-optimize-contrast; }

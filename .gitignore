@@ -1,0 +1,7 @@
+node_modules
+dist
+public/fonts/*.ttf
+public/pdfjs/
+fixtures/out-*.pdf
+*.local
+*.tsbuildinfo

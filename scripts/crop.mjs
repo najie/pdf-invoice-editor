@@ -1,0 +1,10 @@
+import { createCanvas, loadImage } from '@napi-rs/canvas';
+import { writeFile } from 'node:fs/promises';
+const [, , src, out, x, y, w, h, zoom = 1] = process.argv;
+const img = await loadImage(src);
+const c = createCanvas(w * zoom, h * zoom);
+const ctx = c.getContext('2d');
+ctx.imageSmoothingEnabled = false;
+ctx.drawImage(img, +x, +y, +w, +h, 0, 0, w * zoom, h * zoom);
+await writeFile(out, c.toBuffer('image/png'));
+console.log(`cropped -> ${out} (${c.width}x${c.height})`);

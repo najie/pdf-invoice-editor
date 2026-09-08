@@ -1,0 +1,43 @@
+{
+  "name": "pdf-invoice-editor",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "test": "vitest run",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -b --noEmit",
+    "sync-assets": "node scripts/sync-fonts.mjs && node scripts/sync-pdfjs.mjs",
+    "postinstall": "node scripts/sync-fonts.mjs && node scripts/sync-pdfjs.mjs"
+  },
+  "dependencies": {
+    "@cantoo/pdf-lib": "^2.9.1",
+    "fontkit": "^2.0.4",
+    "pdfjs-dist": "^6.2.108",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "zustand": "^5.0.8"
+  },
+  "devDependencies": {
+    "@expo-google-fonts/arimo": "^0.4.3",
+    "@expo-google-fonts/caladea": "^0.4.2",
+    "@expo-google-fonts/carlito": "^0.4.1",
+    "@expo-google-fonts/cousine": "^0.4.3",
+    "@expo-google-fonts/roboto": "^0.4.3",
+    "@expo-google-fonts/tinos": "^0.4.2",
+    "@napi-rs/canvas": "^1.0.7",
+    "@tailwindcss/vite": "^4.1.14",
+    "@types/node": "^26.2.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "^5.0.4",
+    "pixelmatch": "^7.2.0",
+    "pngjs": "^7.0.0",
+    "tailwindcss": "^4.1.14",
+    "typescript": "^5.9.3",
+    "vite": "^7.1.9",
+    "vitest": "^4.1.11"
+  }
+}
